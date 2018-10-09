@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "293718068910",
+    "firebase_url": "https://cz3002projectskillsforhire.firebaseio.com",
+    "project_id": "cz3002projectskillsforhire",
+    "storage_bucket": "cz3002projectskillsforhire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293718068910:android:49e263c79a10a696",
+        "android_client_info": {
+          "package_name": "sg.edu.ntu.e.yeot0019.skillsforhire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293718068910-60folop43onigebjvfhds493mhi4th25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.ntu.e.yeot0019.skillsforhire",
+            "certificate_hash": "dc34b651bbf74e16c6d37a622616d2122bc65ef7"
+          }
+        },
+        {
+          "client_id": "293718068910-ktgkulocs4pobkq7p0kctla5su4pk1kp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmueNzZGU2fFrzXl0tGOprypGLl47ZhTQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293718068910-ktgkulocs4pobkq7p0kctla5su4pk1kp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

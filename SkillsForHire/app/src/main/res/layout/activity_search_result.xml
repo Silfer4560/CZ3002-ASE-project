@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchResult">
+
+
+    <TextView
+        android:id="@+id/hspNameSearchResultTextView"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/hsp_name"
+        android:textSize="40sp"/>
+
+    <ImageView
+        android:id="@+id/userPhoto"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/userStatusSearchResultTextView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="300dp"
+        android:text="User Status"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/hspStatusSearchResultTextView"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:text="@string/hsp_status"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/userTypeSearchResultTextView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="75dp"
+        android:text="User Type"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/hspTypeSearchResultTextView"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="150dp"
+        android:text="@string/hsp_type"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/userRatingSearchResultTextView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="75dp"
+        android:text="User Rating"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/hspRatingSearchResultTextView"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="150dp"
+        android:text="HSP Rating"
+        android:textSize="20sp"/>
+
+
+
+    <Button
+        android:id="@+id/chatButton"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="600dp"
+        android:text="Contact them!" />
+</RelativeLayout>

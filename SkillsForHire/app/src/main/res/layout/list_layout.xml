@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id ="@+id/listLayout">
+
+        <TextView
+            android:id="@+id/textViewHSPName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="10dp"
+            android:text="HSP Name"
+            android:textSize="25sp" />
+        <TextView
+            android:id="@+id/textViewHSPStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:text="HSP Status"
+            android:textSize="10sp" />
+        <TextView
+            android:id="@+id/textViewHSPType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="75dp"
+            android:layout_marginLeft="10dp"
+            android:text="HSP Type"
+            android:textSize="10sp" />
+        <TextView
+            android:id="@+id/textViewHSPRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="10dp"
+            android:text="HSP Rating"
+            android:textSize="10sp" />
+
+</RelativeLayout>

@@ -26,63 +26,48 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchAdapter extends ArrayAdapter<HSPUser>{
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.userViewHolder>{
 
-    private static final String TAG = "SearchAdapter";
+    public Context ctx;
+    public ArrayList<HSPUser> arrayList;
+    public SearchAdapter(Context ctx, ArrayList<HSPUser> arrayList){
+        this.ctx= ctx;
+        this.arrayList = arrayList;
 
-
-    private LayoutInflater mInflater;
-    private List<HSPUser> mUsers = null;
-    private int layoutResource;
-    private Activity activity;
-
-    public SearchAdapter(@NonNull Activity context, @LayoutRes int resource, @NonNull List<HSPUser> objects) {
-        super(context, resource, objects);
-        this.activity = context;
-        this.mUsers = objects;
     }
-
-    private class ViewHolder{
-        TextView userName, userStatus, userType, userRating;
-
-        public ViewHolder(View v) {
-        userName= v.findViewById( R.id.textViewHSPName );
-        userStatus = v.findViewById( R.id.textViewHSPStatus );
-        userType = v.findViewById( R.id.textViewHSPType );
-        userRating = v.findViewById( R.id.textViewHSPRating );
-
-        }
-    }
-
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public userViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_layout,viewGroup,false);
+        return new SearchAdapter.userViewHolder(v);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull userViewHolder holder, int position) {
+        HSPUser user = arrayList.get(position);
+        holder.userName.setText(user.getHSPName());
+        holder.userType.setText(user.getHSPType());
+    }
 
-        ViewHolder holder;
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
+    }
+    @Override
+    public long getItemId(int position){
+        return position;
+    }
 
-        int layoutResource =0;
-        HSPUser hspUser = getItem( position );
-        int viewType = getItemViewType( position );
-        if(convertView == null){
-            convertView = mInflater.inflate(layoutResource, parent, false);
-            holder = new ViewHolder(convertView);
-            convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder) convertView.getTag();
+    public class userViewHolder extends RecyclerView.ViewHolder {
+        public TextView userName,userType;
+
+        public userViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            userName = (TextView)itemView.findViewById(R.id.textViewHSPName);
+            userType = (TextView)itemView.findViewById(R.id.textViewHSPType);
         }
-
-        //set listView content
-        holder.userName.setText(getItem(position).getHSPName());
-        holder.userStatus.setText(getItem(position).getHSPStatus());
-        holder.userType.setText(getItem(position).getHSPType());
-        holder.userRating.setText(getItem(position).getHSPRating());
-
-        return convertView;
     }
-    public int getViewTypeCount() {
-    return 1;
-    }
+
 }

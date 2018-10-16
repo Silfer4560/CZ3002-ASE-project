@@ -27,18 +27,17 @@
 
     <EditText
         android:id="@+id/searchField"
-        android:layout_width="400dp"
+        android:layout_width="325dp"
         android:layout_height="50dp"
         android:layout_marginTop="200dp"
         android:layout_marginLeft="20dp"
         android:inputType="textPersonName"
-        android:text="Home Service Provider Name"/>
+        android:text="@string/home_service_provider_name"/>
 
 
-    <ListView
-        android:id="@+id/listView"
-        style="@style/Widget.AppCompat.ListView"
-        android:layout_width="400dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="325dp"
         android:layout_height="300dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="250dp"

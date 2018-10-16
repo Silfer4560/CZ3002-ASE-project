@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 
 class UserViewHolder extends RecyclerView.ViewHolder {
-    TextView userName,userType;
+    public TextView userName,userType;
     public UserViewHolder(View itemView) {
         super(itemView);
         userName = (TextView)itemView.findViewById(R.id.textViewHSPName);

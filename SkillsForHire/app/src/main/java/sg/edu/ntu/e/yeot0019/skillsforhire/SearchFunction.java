@@ -1,6 +1,7 @@
 package sg.edu.ntu.e.yeot0019.skillsforhire;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -38,6 +40,8 @@ public class SearchFunction extends AppCompatActivity{
     FirebaseRecyclerOptions<HSPUser> options;
     FirebaseRecyclerAdapter<HSPUser, UserViewHolder> adapter;
     ArrayList<HSPUser> userArrayList;
+    Button searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -45,9 +49,16 @@ public class SearchFunction extends AppCompatActivity{
 
         //set the reference to HSP user path within DB
         firebaseDBReference = FirebaseDatabase.getInstance().getReference().child("HSPUsers");
+        //initialize arraylist
         userArrayList = new ArrayList<>();
-        mSearchField = (EditText)findViewById(R.id.searchField);
 
+        //bind variables to layout items
+        mSearchField = (EditText)findViewById(R.id.searchField);
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        //upon changing the search field
         mSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,13 +80,13 @@ public class SearchFunction extends AppCompatActivity{
                 }
             }
         });
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+
+
+
 
         options = new FirebaseRecyclerOptions.Builder<HSPUser>().setQuery(firebaseDBReference,HSPUser.class).build();
         adapter = new FirebaseRecyclerAdapter<HSPUser, UserViewHolder>(options) {
-            @Override
+            @Override//bind viewholder variables to adapter
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull HSPUser model) {
                 holder.userName.setText(model.getHSPName());
                 holder.userType.setText(model.getHSPType());
@@ -85,22 +96,39 @@ public class SearchFunction extends AppCompatActivity{
             @NonNull
             @Override
             public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
+                //on creating adapter, use the layout from list_layout
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_layout,viewGroup,false);
 
                 return new UserViewHolder(view);
             }
         };
+
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
+
+        searchButton = (Button)findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //navigate to profile activity
+                Intent intent = new Intent(SearchFunction.this, SearchResult.class);
+                intent.putExtra( "HSP Name" , mSearchField.toString());
+                startActivity(intent);
+            }
+        });
     }
 
     private void searchForUser(String s) {
-        Query firebaseQuery = firebaseDBReference.orderByChild("HSPName").startAt(s.toString()).endAt(s.toString()+"\uf8ff");
+        //create a query for firebase that starts at whatever is entered and ends beyond it
+        Query firebaseQuery = firebaseDBReference.orderByChild("HSPName").startAt(s).endAt(s+"\uf8ff");
+
+        //use valueEventListener to update query whenever there is a change
         firebaseQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    userArrayList.clear();
-                    for(DataSnapshot userSnapshot:dataSnapshot.getChildren()){
+                    userArrayList.clear();//clear previous values
+                    for(DataSnapshot userSnapshot:dataSnapshot.getChildren()){//get instance of userdata and add to arraylist
                         final HSPUser user = userSnapshot.getValue(HSPUser.class);
                         userArrayList.add(user);
                     }
@@ -115,27 +143,5 @@ public class SearchFunction extends AppCompatActivity{
 
             }
         });
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        if(adapter!=null){
-            adapter.startListening();
-        }
-    }
-    @Override
-    protected void onStop(){
-        if(adapter!=null){
-            adapter.stopListening();
-        }
-        super.onStop();
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-        if(adapter!=null){
-            adapter.startListening();
-        }
     }
 }

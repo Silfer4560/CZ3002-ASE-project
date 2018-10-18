@@ -1,20 +1,27 @@
 package sg.edu.ntu.e.yeot0019.skillsforhire;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,87 +30,71 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SearchFunction extends AppCompatActivity {
-    private Context mContext = SearchFunction.this;
-    private String TAG = "searchFunction";
-    //widgets
-    private EditText mSearchText;
-    private ListView mListView;
-    //variable
-    private List<HSPUser> mUserList;
-    private SearchAdapter mAdapter;
+    public static final String EXTRA_MESSAGE = "SearchFunctionMessage";
+    private ListView lv;
+    ArrayAdapter<String> adapter;
+    EditText inputSearch;
+    Button searchButton;
+
+
+    // ArrayList for Listview
+    ArrayList<HashMap<String, String>> productList;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-     super.onCreate( savedInstanceState );
-     setContentView( R.layout.activity_search_function );
-     mSearchText = (EditText) findViewById( R.id.searchField );
-     mListView = (ListView)findViewById( R.id.listView );
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_function);
 
-     initTextListener();
-    }
-    private  void searchForUser(String userName){
-        mUserList.clear();
-        //update userlist
-        if(userName.length()==0);{
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            Query firebasequery = reference.child("HSPUsers").orderByChild( "HSPUsers" ).equalTo(userName);
-            firebasequery.addListenerForSingleValueEvent( new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot singleSnapshot:dataSnapshot.getChildren()){
-                        mUserList.add(singleSnapshot.getValue(HSPUser.class));
-                        updateUserList();
-                    }
-                }
+        inputSearch = (EditText) findViewById(R.id.searchField);
+        searchButton = (Button)findViewById(R.id.searchButton);
+        // Listview Data
+        String users[] = {"Steve Bobs", "Tim Horton", "Jim Jones", "Margaret Grey", "Sasha Red"};
 
-                @Override
-                public void onCancelled( DatabaseError databaseError) {
+        lv = (ListView) findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.textViewHSPName, users);
 
-                }
-            } );
-        }
-    }
-    private void initTextListener(){
-        mUserList = new ArrayList<>(  );
-        mSearchText.addTextChangedListener( new TextWatcher() {
+        /**
+         * Enabling Search Filter
+         * */
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                SearchFunction.this.adapter.getFilter().filter(cs);
+                // Adding items to listview
+                lv.setAdapter(adapter);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = mSearchText.getText().toString().toLowerCase();
-                searchForUser( text );
-            }
-        } );
-    }
-    private void updateUserList(){
-        Log.d(TAG, "updateUsersList: updating users list");
-
-        mAdapter = new SearchAdapter(SearchFunction.this, R.layout.list_layout, mUserList);
-
-        mListView.setAdapter(mAdapter);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: selected user: " + mUserList.get(position).toString());
-
-                //navigate to profile activity
-
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
             }
         });
+        searchButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getApplicationContext(),SearchResult.class);
+                String message = inputSearch.getText().toString();
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
+
     }
-
-
-
 }

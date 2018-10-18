@@ -27,23 +27,31 @@
 
     <EditText
         android:id="@+id/searchField"
-        android:layout_width="400dp"
+        android:layout_width="225dp"
         android:layout_height="50dp"
         android:layout_marginTop="200dp"
         android:layout_marginLeft="20dp"
         android:inputType="textPersonName"
-        android:text="Home Service Provider Name"/>
+        android:hint="@string/home_service_provider_name" />
 
 
     <ListView
         android:id="@+id/listView"
-        style="@style/Widget.AppCompat.ListView"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
+        android:layout_width="225dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="250dp"
         android:visibility="visible" />
 
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/searchField"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="20dp"
+        android:text="Search" />
 
 
 </RelativeLayout>

@@ -11,14 +11,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SearchFunction">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchResult" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".signupActivity"></activity>
+        <activity android:name=".signupActivity"/>
+        <activity android:name=".SearchResult"/>
+
     </application>
 
 </manifest>

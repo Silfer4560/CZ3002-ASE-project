@@ -46,8 +46,4 @@ public class HSPUsers {
     public String getHSPUserRating() {
         return HSPUserRating;
     }
-
-    public void setHSPUserRating(String HSPUserRating) {
-        this.HSPUserRating = HSPUserRating;
-    }
 }

@@ -18,6 +18,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".signupActivity"/>
         <activity android:name=".SearchResult"/>
+        <activity android:name=".testBench"/>
 
     </application>
 
